@@ -4,20 +4,33 @@
             <div *ngIf="signupError" class="error-message">
                 {{ signupError }}
             </div>
-            <form>
+            <form #form="ngForm" (ngSubmit)="onRegister()" novalidate>
                 <mat-form-field class="full-width">
                     <mat-label>Email</mat-label>
-                    <input matInput name="email" type="email" placeholder="Email" [(ngModel)]="email">
+                    <input matInput name="email" type="email" placeholder="Email" [(ngModel)]="email"
+                        #emailInput="ngModel" required strictEmail>
+                    <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+                        <span *ngIf="emailInput.errors?.['required']">Email is required.</span>
+                        <span *ngIf="emailInput.errors?.['strictEmail']">Please enter a valid email.</span>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Password</mat-label>
-                    <input matInput name="password" type="password" placeholder="Password" [(ngModel)]="password">
+                    <input matInput name="password" type="password" placeholder="Password" [(ngModel)]="password"
+                        #passwordInput="ngModel" required>
+                    <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+                        <span>Password is required.</span>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Name</mat-label>
-                    <input matInput name="name" type="name" placeholder="Name" [(ngModel)]="name">
+                    <input matInput name="name" type="name" placeholder="Name" [(ngModel)]="name" #nameInput="ngModel"
+                        required>
+                    <mat-error *ngIf="nameInput.invalid && nameInput.touched">
+                        <span>Name is required.</span>
+                    </mat-error>
                 </mat-form-field>
-                <button mat-flat-button color="primary" type="submit" class="mt-2" (click)="onRegister()">Register</button> 
+                <button mat-flat-button color="primary" type="submit" class="mt-2" [disabled]="form.invalid">Register</button>
             </form>
         </mat-card-content>
     </mat-card>
