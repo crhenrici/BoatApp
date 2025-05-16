@@ -42,7 +42,6 @@ export class OverviewComponent {
         startWith({}),
         switchMap(() => {
           this.isLoading = true;
-          console.log('pageIndex: ', this.paginator.pageIndex, ', pageSize: ', this.paginator.pageSize)
           return this.boatService.findAll(this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(response => {
@@ -56,7 +55,6 @@ export class OverviewComponent {
         })
       )
       .subscribe(data => {
-        console.log('data: ', JSON.stringify(data));
         this.dataSource.data = data;
       });
   }
@@ -71,7 +69,6 @@ export class OverviewComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result: ', JSON.stringify(result))
       if (result) {
         this.boatService.create(result as Boat).subscribe((res) => {
           this.dataSource.data = [...this.dataSource.data, res];

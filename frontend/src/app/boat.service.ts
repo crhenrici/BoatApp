@@ -38,7 +38,6 @@ export class BoatService {
   }
 
   create(boat:Boat) {
-    console.log('creating boat...');
     return this.http.post(this.httpUrl, {name: boat.name, description: boat.description}, httpOptions).pipe(
       map(res => res as Boat),
       catchError(this.handleError)
@@ -62,7 +61,6 @@ export class BoatService {
 
 
   private handleError(error: HttpErrorResponse) {
-    console.log(error)
     let errorMessage = 'An unknown error occurred';
 
     if (error.error instanceof ErrorEvent) {

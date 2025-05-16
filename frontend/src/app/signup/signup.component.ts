@@ -30,7 +30,6 @@ export class SignupComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log(err)
         this.signupError = err;
       }
     });
