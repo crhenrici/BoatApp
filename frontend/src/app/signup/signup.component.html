@@ -1,0 +1,24 @@
+<div class="fullscreen-container">
+    <mat-card>
+        <mat-card-content>
+            <div *ngIf="signupError" class="error-message">
+                {{ signupError }}
+            </div>
+            <form>
+                <mat-form-field class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput name="email" type="email" placeholder="Email" [(ngModel)]="email">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput name="password" type="password" placeholder="Password" [(ngModel)]="password">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput name="name" type="name" placeholder="Name" [(ngModel)]="name">
+                </mat-form-field>
+                <button mat-flat-button color="primary" type="submit" class="mt-2" (click)="onRegister()">Register</button> 
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,5 @@
+<mat-toolbar>
+  <span><a class="home-link"[routerLink]="['/home']">Boat repository</a></span>
+  <button class="signout-link" (click)="signOut()" *ngIf="isLoggedIn()">Sign out</button>
+</mat-toolbar>
+<router-outlet></router-outlet>

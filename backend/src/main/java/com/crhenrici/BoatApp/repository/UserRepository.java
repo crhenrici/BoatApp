@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<UserModel, Long> {
     @Query("SELECT u FROM UserModel u LEFT JOIN FETCH u.roles WHERE u.email = :email")
     Optional<UserModel> findByEmailWithRoles(String email);
+
+    boolean existsByEmail(String email);
 }

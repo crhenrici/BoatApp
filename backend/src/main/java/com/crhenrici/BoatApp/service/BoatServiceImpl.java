@@ -1,11 +1,14 @@
 package com.crhenrici.BoatApp.service;
 
+import com.crhenrici.BoatApp.dto.PageObject;
 import com.crhenrici.BoatApp.model.Boat;
 import com.crhenrici.BoatApp.repository.BoatRepository;
 import jakarta.persistence.EntityExistsException;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,10 @@ public class BoatServiceImpl implements BoatService{
         this.boatRepository = boatRepository;
     }
     @Override
-    public List<Boat> findAll() {
-        return boatRepository.findAll();
+    public PageObject findAll(Pageable pageable) {
+        Page<Boat> boatPage = boatRepository.findAll(pageable);
+        List<Boat> boats = boatPage.stream().toList();
+        return new PageObject(boats.size(), boats);
     }
 
     @Override
@@ -34,6 +39,13 @@ public class BoatServiceImpl implements BoatService{
         if (boatRepository.existsByName(boat.getName())) {
             throw new EntityExistsException("Boat with name " + boat.getName() + " already exists");
         }
+        boat.setName(sanitizeInput(boat.getName()));
+        boat.setDescription(sanitizeInput(boat.getDescription()));
+        return boatRepository.save(boat);
+    }
+
+    @Override
+    public Boat update(Boat boat) {
         boat.setName(sanitizeInput(boat.getName()));
         boat.setDescription(sanitizeInput(boat.getDescription()));
         return boatRepository.save(boat);

@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: #f0f0f0;
+}
+
+.actions-column {
+    width: 1%;
+    /* or any width you find suitable */
+    padding: 0 8px;
+    text-align: center;
+    white-space: nowrap;
+}

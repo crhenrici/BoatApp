@@ -3,10 +3,12 @@ package com.crhenrici.BoatApp.controller;
 import com.crhenrici.BoatApp.dto.LoginDto;
 import com.crhenrici.BoatApp.dto.LoginResponse;
 import com.crhenrici.BoatApp.dto.RegisterUserDto;
+import com.crhenrici.BoatApp.dto.UserDto;
 import com.crhenrici.BoatApp.model.UserModel;
 import com.crhenrici.BoatApp.security.JwtService;
 import com.crhenrici.BoatApp.security.UserDetailsImpl;
 import com.crhenrici.BoatApp.service.AuthenticationService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +29,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserModel> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<UserDto> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         UserModel user = authService.signup(registerUserDto);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(new UserDto(user.getId(), user.getName(), user.getEmail()));
     }
 
     @PostMapping("/login")

@@ -1,9 +1,12 @@
 package com.crhenrici.BoatApp.controller;
 
 import com.crhenrici.BoatApp.dto.BoatDto;
+import com.crhenrici.BoatApp.dto.PageObject;
 import com.crhenrici.BoatApp.model.Boat;
 import com.crhenrici.BoatApp.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +24,9 @@ public class BoatController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Boat>> findAll() {
-        System.out.println("Request came in");
-        return ResponseEntity.ok(boatService.findAll());
+    public ResponseEntity<PageObject> findAll(@RequestParam(name = "pageIndex") Integer pageIndex, @RequestParam(name = "pageSize") Integer pageSize) {
+        Pageable pageObject = PageRequest.of(pageIndex, pageSize);
+        return ResponseEntity.ok(boatService.findAll(pageObject));
     }
 
     @GetMapping("/{id}")
@@ -33,12 +36,13 @@ public class BoatController {
 
     @PostMapping()
     public ResponseEntity<Boat> save(@RequestBody BoatDto boat) {
+        System.out.println("Creating boat...");
         return ResponseEntity.ok(boatService.save(new Boat(boat.name(), boat.description())));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Boat> update(@PathVariable Long id, @RequestBody BoatDto boat) {
-        return ResponseEntity.ok(boatService.save(new Boat(id, boat.name(), boat.description())));
+        return ResponseEntity.ok(boatService.update(new Boat(id, boat.name(), boat.description())));
     }
 
     @DeleteMapping("/{id}")

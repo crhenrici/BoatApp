@@ -1,0 +1,28 @@
+mat-toolbar {
+    background-color: #1976d2;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .home-link {
+    color: white;
+    text-decoration: none;
+  }
+
+  .signout-link {
+    background: none;
+    border: none;
+    color: white; /* or match your toolbar text color */
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    outline: none;
+  }
+  
+  .signout-link:hover {
+    text-decoration: none;
+    color: #ddd; /* lighter on hover */
+  }

@@ -2,6 +2,7 @@ package com.crhenrici.BoatApp.service;
 
 import com.crhenrici.BoatApp.dto.LoginDto;
 import com.crhenrici.BoatApp.dto.RegisterUserDto;
+import com.crhenrici.BoatApp.exceptions.UserExistsException;
 import com.crhenrici.BoatApp.model.UserModel;
 import com.crhenrici.BoatApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 .password(passwordEncoder.encode(registerUserDto.password()))
                 .name(registerUserDto.name())
                 .build();
+
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new UserExistsException("User with email " + user.getEmail() + " already exists");
+        }
 
         return userRepository.save(user);
     }
