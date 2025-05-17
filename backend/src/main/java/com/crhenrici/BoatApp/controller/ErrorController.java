@@ -23,8 +23,8 @@ public class ErrorController {
     }
 
     @ExceptionHandler(EntityExistsException.class)
-    public ResponseEntity<String> handleEntityExists(EntityExistsException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    public ResponseEntity<Error> handleEntityExists(EntityExistsException ex) {
+        return ResponseEntity.badRequest().body(new Error(ex.getMessage()));
     }
 
     @ExceptionHandler(UserExistsException.class)

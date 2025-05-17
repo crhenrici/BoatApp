@@ -4,9 +4,11 @@ import com.crhenrici.BoatApp.dto.BoatDto;
 import com.crhenrici.BoatApp.dto.PageObject;
 import com.crhenrici.BoatApp.model.Boat;
 import com.crhenrici.BoatApp.service.BoatService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +37,12 @@ public class BoatController {
     }
 
     @PostMapping()
-    public ResponseEntity<Boat> save(@RequestBody BoatDto boat) {
-        return ResponseEntity.ok(boatService.save(new Boat(boat.name(), boat.description())));
+    public ResponseEntity<Boat> save(@Valid @RequestBody BoatDto boat) {
+        return new ResponseEntity(boatService.save(new Boat(boat.name(), boat.description())), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Boat> update(@PathVariable Long id, @RequestBody BoatDto boat) {
+    public ResponseEntity<Boat> update(@PathVariable Long id, @Valid @RequestBody BoatDto boat) {
         return ResponseEntity.ok(boatService.update(new Boat(id, boat.name(), boat.description())));
     }
 

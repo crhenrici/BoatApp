@@ -1,4 +1,6 @@
 package com.crhenrici.BoatApp.dto;
 
-public record LoginDto(String email, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record LoginDto(@NotBlank(message = "Email is mandatory") String email, @NotBlank(message = "Password is mandatory") String password) {
 }
