@@ -26,7 +26,7 @@ public class BoatServiceImpl implements BoatService{
     public PageObject findAll(Pageable pageable) {
         Page<Boat> boatPage = boatRepository.findAll(pageable);
         List<Boat> boats = boatPage.stream().toList();
-        return new PageObject(boats.size(), boats);
+        return new PageObject((int)boatPage.getTotalElements(), boats);
     }
 
     @Override

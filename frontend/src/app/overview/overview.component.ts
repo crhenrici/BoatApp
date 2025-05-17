@@ -24,7 +24,7 @@ const DATA: Boat[] = [
 })
 export class OverviewComponent {
   displayedColumns: string[] = ['action', 'id', 'name', 'desc'];
-  dataSource: MatTableDataSource<Boat> = new MatTableDataSource<Boat>([]);
+  dataSource: Boat[] = [];
   totalItems = 0
   isLoading = false;
   readonly dialog = inject(MatDialog);
@@ -35,32 +35,35 @@ export class OverviewComponent {
   constructor(private boatService: BoatService) { }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.paginator.page
+      .pipe(startWith({}))
+      .subscribe(() => this.loadPage());
+  }
 
-    merge(this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoading = true;
-          return this.boatService.findAll(this.paginator.pageIndex, this.paginator.pageSize);
-        }),
-        map(response => {
-          this.isLoading = false;
-          this.totalItems = response.totalCount;
-          return response.data;
-        }),
-        catchError(() => {
-          this.isLoading = false;
-          return observableOf([]);
-        })
-      )
-      .subscribe(data => {
-        this.dataSource.data = data;
-      });
+  private loadPage() {
+    this.isLoading = true;
+    this.boatService.findAll(this.paginator.pageIndex, this.paginator.pageSize)
+    .pipe(
+      map(response => {
+        this.totalItems = response.totalCount;
+        return response.data
+      }),
+      catchError(() => observableOf([]))
+    )
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data;
+      this.paginator.length = this.totalItems
+    })
   }
 
   onDelete(id: string) {
-    this.boatService.delete(id).subscribe(() => this.dataSource.data = this.dataSource.data.filter(boat => boat.id !== Number(id)));
+    this.boatService.delete(id).subscribe(() =>{
+      if (this.dataSource.length == 1 && this.paginator.pageIndex > 0) {
+        this.paginator.pageIndex--;
+      }
+      this.loadPage()
+  });
   }
 
   openDialog() {
@@ -71,7 +74,8 @@ export class OverviewComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.boatService.create(result as Boat).subscribe((res) => {
-          this.dataSource.data = [...this.dataSource.data, res];
+          this.paginator.pageIndex = 0;
+          this.loadPage()
         });
       }
     })

@@ -40,3 +40,5 @@ As this is a sample application, it is far from being perfect and done. Therefor
 - [ ] Add password strength checker
 - [ ] Matching passwords
 - [ ] More server-side validation
+- [ ] Implement HttpCookies
+  - Currently, you have to login again on a page refresh or when you navigate to a page through URL (also a page refresh) because the token is stored in memory. I went with this appraoch because using localStorage exposes the threat of XSS

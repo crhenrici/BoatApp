@@ -2,10 +2,11 @@
     <mat-card-content *ngIf="!isEdit">
         <p>Name: {{boat?.name}} </p>
         <p>Description: {{boat?.description}}</p>
+        <button mat-flat-button color="primary" type="button" class="mt-2" (click)="onBack()">Back</button>
         <button mat-flat-button color="primary" type="button" (click)="isEdit = true">Edit</button>  
     </mat-card-content>
     <mat-card-content *ngIf="isEdit">
-        <form>
+        <form #formRef="ngForm">
             <mat-form-field class="full-width">
                 <mat-label>Name</mat-label>
                 <input matInput name="name" type="text" [(ngModel)]="boat!.name">
@@ -14,6 +15,7 @@
                 <mat-label>Description</mat-label>
                 <input matInput name="desc" type="text" [(ngModel)]="boat!.description">
             </mat-form-field>
+            <button mat-flat-button color="primary" type="button" class="mt-2" (click)="onCancel(formRef)">Cancel</button>
             <button mat-flat-button color="primary" type="button" class="mt-2" (click)="onSave()">save</button> 
         </form>
     </mat-card-content>

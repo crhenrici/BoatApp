@@ -36,7 +36,6 @@ public class BoatController {
 
     @PostMapping()
     public ResponseEntity<Boat> save(@RequestBody BoatDto boat) {
-        System.out.println("Creating boat...");
         return ResponseEntity.ok(boatService.save(new Boat(boat.name(), boat.description())));
     }
 

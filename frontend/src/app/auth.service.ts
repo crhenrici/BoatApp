@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { UserDto } from './dto/UserDto';
 import { TokenService } from './token.service';
 import { environment } from '../environments/environment';
@@ -21,6 +21,10 @@ export class AuthService {
     this.httpUrl = `${environment.apiUrl}/auth`
   }
 
+  async initialize(): Promise<void> {
+    const token = this.tokenService.getToken();
+    this.loggedIn == !!token;
+  }
 
   signup(name: string, email: string, password: string): Observable<any> {
     const url = `${this.httpUrl}/signup`;
