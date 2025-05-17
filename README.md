@@ -33,7 +33,11 @@ Frontend was being developed with:
 
 ## Improvements
 As this is a sample application, it is far from being perfect and done. Therefore, there are a couple of things that can be improved:
-- [ ] UI/UX improvements - cleaner design
+- [ ] UI/UX improvements
+   - [ ] use icons as button
+   - [ ] make home navigation more intuitive
+   - [ ] implement a navigation bar
+   - [ ] better CSS styling
 - [ ] Adjustment to User model to include set of boats (if that is the requirement)
 - [ ] Use [MapStruct](https://mapstruct.org) for when DTOs and Models become bigger
 - [ ] Use [PageObject pattern](https://martinfowler.com/bliki/PageObject.html) for clean UI testing
