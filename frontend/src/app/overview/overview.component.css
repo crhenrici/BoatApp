@@ -17,3 +17,9 @@ table {
     text-align: center;
     white-space: nowrap;
 }
+
+.error-snackbar {
+    background-color: #e53935;
+    color: white;
+    font-weight: bold;
+}

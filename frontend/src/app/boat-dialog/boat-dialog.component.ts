@@ -12,11 +12,12 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { Boat } from '../model/boat';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-boat-dialog',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, CommonModule],
   templateUrl: './boat-dialog.component.html',
   styleUrl: './boat-dialog.component.css'
 })

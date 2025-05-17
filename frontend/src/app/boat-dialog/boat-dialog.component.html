@@ -2,14 +2,20 @@
 <mat-dialog-content>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="boat.name" />
+      <input matInput #name="ngModel" [(ngModel)]="boat.name" required/>
+      <mat-error *ngIf="name.invalid && name.touched">
+        <span *ngIf="name.errors?.['required']">Name is required.</span>
+    </mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="boat.description">
+        <input matInput #description="ngModel" [(ngModel)]="boat.description" required>
+        <mat-error *ngIf="description.invalid && description.touched">
+            <span *ngIf="description.errors?.['required']">Description is required.</span>
+        </mat-error>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="boat" cdkFocusInitial>Ok</button>
+    <button mat-button [mat-dialog-close]="boat" cdkFocusInitial [disabled]="description.invalid || name.invalid">Ok</button>
   </mat-dialog-actions>
