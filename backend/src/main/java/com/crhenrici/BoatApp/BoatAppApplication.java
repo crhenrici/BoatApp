@@ -1,6 +1,7 @@
 package com.crhenrici.BoatApp;
 
 import com.crhenrici.BoatApp.model.Boat;
+import com.crhenrici.BoatApp.repository.BoatRepository;
 import com.crhenrici.BoatApp.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,17 +17,19 @@ public class BoatAppApplication {
 	}
 
 	@Autowired
-	BoatService boatService;
+	BoatRepository boatRepository;
 
 	@Bean
 	CommandLineRunner runner() {
 		return args -> {
-			Boat boat = new Boat("Boat A", "Some very cool boat");
-			Boat boat2 = new Boat("Boat B", "Some cool boat");
-			Boat boat3 = new Boat("Boat C", "Some other boat");
-			boatService.save(boat);
-			boatService.save(boat2);
-			boatService.save(boat3);
+			if (boatRepository.count() == 0) {
+				Boat boat = new Boat("Boat A", "Some very cool boat");
+				Boat boat2 = new Boat("Boat B", "Some cool boat");
+				Boat boat3 = new Boat("Boat C", "Some other boat");
+				boatRepository.save(boat);
+				boatRepository.save(boat2);
+				boatRepository.save(boat3);
+			}
 		};
 	}
 
