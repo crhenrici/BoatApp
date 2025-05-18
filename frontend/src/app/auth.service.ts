@@ -59,8 +59,6 @@ export class AuthService {
 
     if (error.status === 401) {
       errorMessage = 'Invalid credentials';
-    } else  if (error.error) {
-      errorMessage = error.error
     } else {
       errorMessage = `Server error: ${error.status}`;
     }
