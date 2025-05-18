@@ -30,4 +30,8 @@ export class BoatDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onOkClick(): void {
+    this.dialogRef.close(this.boat);
+  }
 }

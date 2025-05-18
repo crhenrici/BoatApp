@@ -4,7 +4,7 @@
         <p>Description: {{boat?.description}}</p>
         <div class="button-row">
             <button mat-flat-button color="primary" type="button" class="mt-2" (click)="onBack()">Back</button>
-            <button mat-flat-button color="primary" type="button" (click)="isEdit = true">Edit</button>  
+            <button id="edit" mat-flat-button color="primary" type="button" (click)="isEdit = true">Edit</button>  
         </div>
     </mat-card-content>
     <mat-card-content *ngIf="isEdit">
