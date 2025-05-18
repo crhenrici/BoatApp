@@ -48,3 +48,4 @@ As this is a sample application, it is far from being perfect and done. Therefor
   - Currently, you have to login again on a page refresh or when you navigate to a page through URL (also a page refresh) because the token is stored in memory. I went with this appraoch because using localStorage exposes the threat of XSS
 - [ ] Refactor tests to not use hard-coded values
    - Currently, both backend and frontend test use a lot repeated hard-coded values. These values could be centralized or even read from a file for better maintainability.
+- [ ] Standardize erros of format `errors: { message: 'error message'}`
