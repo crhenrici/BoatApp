@@ -126,7 +126,7 @@ describe('BoatService', () => {
     });
 
     const req = httpMock.expectOne(`${apiUrl}/1`);
-    req.flush({}, { status: 401, statusText: 'Unauthorized'});
+    req.flush(null, { status: 401, statusText: 'Unauthorized'});
   });
 
   it('should handle server error', () => {
@@ -138,6 +138,6 @@ describe('BoatService', () => {
     });
 
     const req = httpMock.expectOne(`${apiUrl}/1`);
-    req.flush({}, { status: 500, statusText: 'Server error'});
+    req.flush(null, { status: 500, statusText: 'Server error'});
   });
 });

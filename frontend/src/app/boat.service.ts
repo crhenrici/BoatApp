@@ -63,7 +63,9 @@ export class BoatService {
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
 
-    if (error.error) {
+    if (error.error?.message) {
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else if (error.error) {
       errorMessage = `Client-side error: ${error.error?.name || ""} ${error.error?.description || ""}`;
     } else if (error.status === 401) {
       errorMessage = 'Unauthorized';
