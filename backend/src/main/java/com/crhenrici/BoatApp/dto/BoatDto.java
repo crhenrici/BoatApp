@@ -4,5 +4,5 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 
-public record BoatDto(@NotBlank String name, @NotBlank String description) implements Serializable {
+public record BoatDto(@NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Description is mandatory") String description) implements Serializable {
 }

@@ -11,15 +11,21 @@
         <form #formRef="ngForm">
             <mat-form-field class="full-width">
                 <mat-label>Name</mat-label>
-                <input matInput name="name" type="text" [(ngModel)]="boat!.name">
+                <input matInput  #name="ngModel" name="name" type="text" [(ngModel)]="boat!.name" required="">
+                <mat-error *ngIf="name.invalid && name.touched">
+                    <span *ngIf="name.errors?.['required']">Name is required.</span>
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Description</mat-label>
-                <input matInput name="desc" type="text" [(ngModel)]="boat!.description">
+                <input matInput #description="ngModel" name="desc" type="text" [(ngModel)]="boat!.description" required>
+                <mat-error *ngIf="description.invalid && description.touched">
+                    <span *ngIf="description.errors?.['required']">Description is required.</span>
+                </mat-error>
             </mat-form-field>
             <div class="button-row">
                 <button mat-flat-button color="primary" type="button" class="mt-2" (click)="onCancel(formRef)">Cancel</button>
-                <button mat-flat-button color="primary" type="button" (click)="onSave()">Save</button> 
+                <button mat-flat-button color="primary" type="button" (click)="onSave()" [disabled]="description.invalid || name.invalid">Save</button> 
             </div>
         </form>
     </mat-card-content>
