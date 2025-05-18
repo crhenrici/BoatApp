@@ -52,8 +52,12 @@ export class DetailComponent {
   }
 
   onCancel(form: NgForm) {
-    console.log(`onCancel boatUpdate: ${JSON.stringify(this.boatUpdate)}`)
-    this.boat = this.boatUpdate;
+    console.log(`onCancel boatUpdate: ${JSON.stringify(this.boatUpdate)}`);
+    this.boat = {
+      id: this.boatUpdate!!.id,
+      name: this.boatUpdate!!.name,
+      description: this.boatUpdate!!.description
+    };
     this.isEdit = false;
   }
 
