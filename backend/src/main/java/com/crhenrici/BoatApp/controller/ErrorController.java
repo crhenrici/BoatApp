@@ -28,8 +28,8 @@ public class ErrorController {
     }
 
     @ExceptionHandler(UserExistsException.class)
-    public ResponseEntity<String> handleUserExists(UserExistsException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    public ResponseEntity<Error> handleUserExists(UserExistsException ex) {
+        return ResponseEntity.badRequest().body(new Error(ex.getMessage()));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
