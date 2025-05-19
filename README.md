@@ -49,3 +49,4 @@ As this is a sample application, it is far from being perfect and done. Therefor
 - [ ] Refactor tests to not use hard-coded values
    - Currently, both backend and frontend test use a lot repeated hard-coded values. These values could be centralized or even read from a file for better maintainability.
 - [ ] Standardize erros of format `errors: { message: 'error message'}`
+- [ ] Add Javadoc for interfaces and swagger documentation for REST APIs
